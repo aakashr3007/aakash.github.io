@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aakash R — Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --primary: #0a0a14;
+      --secondary: #1a1a2e;
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #06b6d4;
+      --text: #f8fafc;
+      --text-light: #cbd5e1;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      background: var(--primary);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Fantastic Background */
+    .fantastic-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(14, 165, 233, 0.2) 0%, transparent 50%),
+        linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+    }
+
+    /* Animated Nebula Effect */
+    .nebula {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    .nebula-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.4) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(139, 92, 246, 0.3) 0%, transparent 40%),
+        radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.3) 0%, transparent 40%);
+      animation: nebulaFloat 20s ease-in-out infinite;
+    }
+
+    .nebula-layer:nth-child(2) {
+      background: 
+        radial-gradient(circle at 60% 40%, rgba(236, 72, 153, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 30% 60%, rgba(245, 158, 11, 0.2) 0%, transparent 40%);
+      animation: nebulaFloat 25s ease-in-out infinite reverse;
+    }
+
+    @keyframes nebulaFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(-10px, 15px) scale(1.02); }
+      50% { transform: translate(5px, -10px) scale(0.98); }
+      75% { transform: translate(15px, 5px) scale(1.01); }
+    }
+
+    /* Floating Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      animation: floatParticle 15s infinite linear;
+    }
+
+    @keyframes floatParticle {
+      0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) translateX(100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Glass morphism effect for content */
+    .glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Header Styles */
+    header {
+      text-align: center;
+      padding: 120px 20px 60px;
+      position: relative;
+    }
+
+    .profile-container {
+      display: inline-block;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .profile-img-placeholder {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .profile-img-placeholder::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg, var(--accent), var(--accent-light), var(--accent-purple), var(--accent-cyan));
+      border-radius: 50%;
+      z-index: -1;
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .profile-img-placeholder i {
+      font-size: 70px;
+      color: rgba(255, 255, 255, 0.9);
+      z-index: 1;
+    }
+
+    header h1 {
+      font-size: 3.5em;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--text), var(--accent-light), #c7d2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      margin-bottom: 10px;
+    }
+
+    .typing {
+      color: var(--text-light);
+      font-size: 1.4em;
+      margin-top: 10px;
+      height: 32px;
+      font-weight: 300;
+    }
+
+    nav {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      padding: 12px 25px;
+      border-radius: 30px;
+      transition: all 0.4s ease;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.7s ease;
+    }
+
+    nav a:hover::before {
+      left: 100%;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 50px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      color: var(--text);
+      margin-bottom: 30px;
+      font-size: 2.5em;
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 2px;
+    }
+
+    /* Resume button */
+    .resume-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 14px 30px;
+      border-radius: 30px;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .resume-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.7s ease;
+    }
+
+    .resume-btn:hover::before {
+      left: 100%;
+    }
+
+    .resume-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .education-item glass {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 14px 30px;
+      border-radius: 30px;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .education-item glass::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.7s ease;
+    }
+
+    .education-item glass:hover::before {
+      left: 100%;
+    }
+
+    .education-item glass:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Updated Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .skill-category {
+      padding: 25px;
+      border-radius: 15px;
+      transition: all 0.4s ease;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .skill-category:hover::before {
+      transform: scaleX(1);
+    }
+
+    .skill-category:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .skill-category h3 {
+      color: var(--text);
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-category h3 i {
+      color: var(--accent-light);
+      font-size: 1.2em;
+    }
+
+    .skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-item {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .skill-item:hover::before {
+      left: 100%;
+    }
+
+    .skill-item:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-2px);
+    }
+
+    /* Skill level indicators */
+    .skill-level {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .level-dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .dot.filled {
+      background: var(--accent-light);
+    }
+
+    .level-text {
+      font-size: 0.75em;
+      color: var(--text-light);
+    }
+
+    /* Projects section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .project-card {
+      padding: 25px;
+      border-radius: 15px;
+      transition: all 0.4s ease;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .project-card h3 {
+      color: var(--text);
+      font-size: 1.4em;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .project-card p {
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .tech-tag {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+
+    /* Contact section */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(5px);
+    }
+
+    .contact-icon {
+      font-size: 1.5em;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text);
+      font-size: 1.3em;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .social-link:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-5px);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 1em;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.5);
+    }
+
+    .contact-form button {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-family: 'Poppins', sans-serif;
+      width: 100%;
+    }
+
+    .contact-form button:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-light);
+      padding: 40px 25px;
+      margin-top: 80px;
+      font-size: 0.9em;
+    }
+
+    /* Form message styles */
+    .form-message {
+      padding: 15px;
+      border-radius: 10px;
+      margin: 15px 0;
+      text-align: center;
+      font-weight: 500;
+      display: none;
+    }
+
+    .form-message.success {
+      background: rgba(34, 197, 94, 0.2);
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      display: block;
+    }
+
+    .form-message.error {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      display: block;
+    }
+
+    .form-message.sending {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      display: block;
+    }
+
+    section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Smooth fade-in animation */
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .fade-in-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Slight delay for each item inside */
+    .fade-item {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.7s ease-out;
+    }
+
+    .fade-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      section {
+        max-width: 95%;
+        padding: 30px 20px;
+        margin: 40px auto;
+      }
+
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 2.5em;
+      }
+
+      nav {
+        gap: 10px;
+      }
+
+      nav a {
+        padding: 10px 20px;
+      }
+      
+      .profile-img-placeholder {
+        width: 140px;
+        height: 140px;
+      }
+      
+      .profile-img-placeholder i {
+        font-size: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fantastic Background Elements -->
+  <div class="fantastic-bg"></div>
+  <div class="nebula">
+    <div class="nebula-layer"></div>
+    <div class="nebula-layer"></div>
+  </div>
+  <div class="particles" id="particles"></div>
+
+  <header>
+    <h1>Aakash R</h1>
+    <p class="typing"></p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="about" class="glass">
+    <h2>About Me</h2>
+    <p style="line-height: 1.8; margin-bottom: 20px;">
+      &emsp;&emsp;&emsp;I'm <strong>Aakash R</strong>, an MCA final-year student from Palayamkottai, Tamil Nadu, and a passionate learner in 
+      <strong>Java</strong> and <strong>Android development</strong>. I enjoy exploring new technologies and creating practical 
+      mobile and web applications that solve real-world problems.
+    </p>
+    <ul style="line-height: 1.8; margin-bottom: 20px; padding-left: 20px;">
+      <li>Currently learning and improving my <strong>Core Java</strong> and <strong>OOP</strong> concepts.</li>
+      <li>Familiar with <strong>Flutter</strong> and <strong>Firebase</strong> app development.</li>
+      <li>Interested in developing <strong>Android</strong> and <strong>web-based systems</strong>.</li>
+      <li>Quick learner, motivated to grow as a <strong>Java Developer</strong> and explore <strong>Cloud technologies</strong>.</li>
+    </ul>
+    <a class="resume-btn" href="Aakashresume.pdf" target="_blank" download>
+  <i class="far fa-file-alt"></i> View / Download My Resume
+</a>
+ <a class="resume-btn" href="#projects">
+    <i class="fas fa-code"></i>  My Works
+  </a>
+  </section>
+
+  <section id="education" class="glass fade-in-section">
+  <h2>Education</h2>
+  <div style="display: flex; flex-direction: column; gap: 25px;">
+    <div class="education-item glass fade-item" style="padding: 20px; border-radius: 10px;">
+      <p style="color: var(--text); font-weight: 600; margin-bottom: 5px;">📘 Master of Computer Applications (MCA)</p>
+      <p style="color: var(--text-light);">Manonmaniam Sundaranar University, Tirunelveli</p>
+      <p style="color: var(--text-light); font-size: 0.9em;"><em>2024 – Present</em></p>
+    </div>
+
+    <div class="education-item glass fade-item" style="padding: 20px; border-radius: 10px;">
+      <p style="color: var(--text); font-weight: 600; margin-bottom: 5px;">🎓 Bachelor of Computer Application (BCA)</p>
+      <p style="color: var(--text-light);">St John's College, Palayamkottai</p>
+      <p style="color: var(--text-light); font-size: 0.9em;"><em>2021 – 2024</em></p>
+    </div>
+
+    <div class="education-item glass fade-item" style="padding: 20px; border-radius: 10px;">
+      <p style="color: var(--text); font-weight: 600; margin-bottom: 5px;">🏫 HSC - Computer Science</p>
+      <p style="color: var(--text-light);">St John's Hr. Sec. School, Palayamkottai</p>
+      <p style="color: var(--text-light); font-size: 0.9em;"><em>2020 – 2021</em></p>
+    </div>
+  </div>
+</section>
+
+  <script>
+  // Fade-in animation on scroll
+  const faders = document.querySelectorAll('.fade-in-section, .fade-item');
+  const appearOptions = {
+    threshold: 0.2
+  };
+
+  const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    });
+  }, appearOptions);
+
+  faders.forEach(fader => {
+    appearOnScroll.observe(fader);
+  });
+</script>
+
+
+  <section id="skills" class="glass">
+    <h2>💻 Skills</h2>
+
+    <div class="skills-grid">
+      <!-- Programming Languages -->
+      <div class="skill-category">
+        <h3><i class="fas fa-code"></i> Programming Languages</h3>
+        <div class="skill-items">
+          <div class="skill-item">
+            Java (Core)
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Advanced</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            C
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Intermediate</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            C++
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Intermediate</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            Python
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Intermediate</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            Dart (Basic)
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Beginner</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile App Development -->
+      <div class="skill-category">
+        <h3><i class="fas fa-mobile-alt"></i> Mobile App Development</h3>
+        <div class="skill-items">
+          <div class="skill-item">
+            Flutter
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Advanced</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            Firebase Auth
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Intermediate</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            Firestore
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Intermediate</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            Firebase Storage
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Intermediate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Database -->
+      <div class="skill-category">
+        <h3><i class="fas fa-database"></i> Database</h3>
+        <div class="skill-items">
+          <div class="skill-item">
+            SQLite
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Intermediate</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            SQL
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Intermediate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools & Platforms -->
+      <div class="skill-category">
+        <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
+        <div class="skill-items">
+          <div class="skill-item">
+            Android Studio
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Advanced</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            Visual Studio Code
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Advanced</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other Skills -->
+      <div class="skill-category">
+        <h3><i class="fas fa-star"></i> Other Skills</h3>
+        <div class="skill-items">
+          <div class="skill-item">
+            Microsoft Office
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Intermediate</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            English Typewriting (Lower)
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot"></div>
+              </div>
+              <span class="level-text">Expert</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            English Typewriting (Higher)
+            <div class="skill-level">
+              <div class="level-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+              </div>
+              <span class="level-text">Advanced</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="glass">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card glass">
+        <h3>Wanderlust Organizer</h3>
+        <p><strong>Duration:</strong> December 2023 – April 2024</p>
+        <p><strong>Domain:</strong> Website Development</p>
+        <p>A web-based tourism package management system for creating and customizing tour packages.</p>
+        <div class="tech-tags">
+         <p><strong>Tools and technologies:</strong></p><br> 
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">PHP</span>
+          <span class="tech-tag">MySQL</span>
+        </div>
+        <a class="resume-btn" href="Ug abstract.pdf" target="_blank" style="margin-top: 15px; text-align: center;">
+          <i class="far fa-file-pdf"></i> Project Abstract
+        </a>
+      </div>
+
+      <div class="project-card glass">
+        <h3>Location-Based Departmental Management System</h3>
+        <p><strong>Duration:</strong> July 2025 – October 2025</p>
+        <p><strong>Domain:</strong> Mobile App Development</p>
+        <p>A Flutter-based mobile app for tracking departmental complaints with location and photo features.</p>
+        <div class="tech-tags">
+          <p><strong>Tools and technologies:</strong></p><br>
+          <span class="tech-tag">Flutter</span>
+          <span class="tech-tag">Dart</span>
+          <span class="tech-tag">Firebase</span>
+          <span class="tech-tag">VS Code</span>
+        </div>
+        <a class="resume-btn" href="Abstract.pdf" target="_blank" style="margin-top: 15px; text-align: center;">
+          <i class="far fa-file-pdf"></i> Project Abstract
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="glass">
+    <h2>Contact Me</h2>
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3 style="color: var(--text); margin-bottom: 20px; font-size: 1.4em;">Get in Touch</h3>
+        <div class="contact-item glass">
+          <div class="contact-icon">
+            <i class="fas fa-user"></i>
+          </div>
+          <div>
+            <p style="font-weight: 600;">Aakash R</p>
+            <p style="font-size: 0.9em; opacity: 0.9;">Palayamkottai, Tamil Nadu</p>
+          </div>
+        </div>
+        <div class="contact-item glass">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div>
+            <p style="font-weight: 600;">Email</p>
+            <p style="font-size: 0.9em; opacity: 0.9;">aakashr3002@gmail.com</p>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/aakashr3007" target="_blank" class="social-link glass">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/aakashr076/" target="_blank" class="social-link glass">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.instagram.com/mr_aakash_076?igsh=MW81ZG5tMDFrOWt1eg==" target="_blank" class="social-link glass">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="contact-form">
+  <h3 style="color: var(--text); margin-bottom: 20px; font-size: 1.4em;">Message Me</h3>
+
+  <!-- Success/Error Message -->
+  <div id="formMessage" style="margin-bottom: 15px;"></div>
+
+    <form action="https://api.web3forms.com/submit" method="POST">
+    <!-- ✅ Web3Forms Access Key -->
+    <input type="hidden" name="access_key" value="6bc85243-a92b-4d12-8a64-eac4d2fd866b">
+
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <input type="text" name="subject" placeholder="Subject" required>
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+
+    <button type="submit" id="submitBtn">
+      <span id="btnText">Send Message</span>
+      <div id="btnLoader" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Sending...</div>
+    </button>
+
+    <!-- Optional redirect -->
+    <!-- <input type="hidden" name="redirect" value="https://yourwebsite.com/thankyou.html"> -->
+  </form>
+</div>
+    </div>
+  </section>
+
+  <footer class="glass">
+    © 2025 Aakash R | Portfolio
+  </footer>
+
+  <script>
+    // Typing effect
+    const text = ["Software Developer", "Android App Developer", "Flutter Learner"];
+    let index = 0, charIndex = 0, deleting = false;
+    const typingEl = document.querySelector(".typing");
+
+    function typeEffect() {
+      const current = text[index];
+      typingEl.textContent = current.substring(0, charIndex);
+      if (!deleting && charIndex++ === current.length + 1) deleting = true;
+      else if (deleting && charIndex-- === 0) { deleting = false; index = (index + 1) % text.length; }
+      setTimeout(typeEffect, deleting ? 70 : 120);
+    }
+    typeEffect();
+
+    // Section reveal on scroll
+    const sections = document.querySelectorAll("section");
+    window.addEventListener("scroll", () => {
+      const trigger = window.innerHeight * 0.8;
+      sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top < trigger) sec.classList.add("visible");
+      });
+    });
+
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random properties
+        const size = Math.random() * 3 + 1;
+        const left = Math.random() * 100;
+        const delay = Math.random() * 15;
+        const duration = Math.random() * 10 + 10;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${left}%`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    // Initialize particles
+    createParticles();
+
+    // Contact Form Handling
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnLoader = document.getElementById('btnLoader');
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      btnLoader.style.display = 'block';
+      formMessage.className = 'form-message sending';
+      formMessage.textContent = 'Sending your message...';
+      formMessage.style.display = 'block';
+
+      try {
+        // Get form data
+        const formData = {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          subject: document.getElementById('subject').value,
+          message: document.getElementById('message').value
+        };
+
+        // STEP 1: Go to https://formspree.io and create a FREE account
+        // STEP 2: Create a new form and get your form ID
+        // STEP 3: Replace 'YOUR_FORMSPREE_ENDPOINT' below with your actual Formspree endpoint
+        
+        // Example Formspree endpoint looks like: https://formspree.io/f/xxxxxxxxxx
+        const formspreeEndpoint = 'https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT';
+        
+        const response = await fetch(formspreeEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+          // Success
+          formMessage.className = 'form-message success';
+          formMessage.textContent = 'Thank you! Your message has been sent successfully. I will get back to you soon.';
+          contactForm.reset();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        // Error
+        formMessage.className = 'form-message error';
+        formMessage.textContent = 'Sorry, there was an error sending your message. Please try again or email me directly at aakashr3002@gmail.com';
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        btnText.style.display = 'block';
+        btnLoader.style.display = 'none';
+        
+        // Hide message after 5 seconds
+        setTimeout(() => {
+          formMessage.style.display = 'none';
+        }, 5000);
+      }
+    });
+  </script>
+</body>
+</html>
