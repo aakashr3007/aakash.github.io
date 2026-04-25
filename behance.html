@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Portfolio — Aakash R</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Cabinet+Grotesk:wght@300;400;500;700;800&family=Fira+Code:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #07060a;
+      --surface: #0f0d14;
+      --card: #14121c;
+      --indigo: #6366f1;
+      --violet: #8b5cf6;
+      --cyan: #06b6d4;
+      --pink: #ec4899;
+      --text: #f1f0f5;
+      --muted: #6b6880;
+      --border: rgba(139, 92, 246, 0.18);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Cabinet Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── LOADER ── */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      transition: opacity .8s ease;
+    }
+
+    #loader.done {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      overflow: hidden;
+    }
+
+    .loader-text span {
+      display: inline-block;
+      animation: lUp .6s cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    .loader-line {
+      width: 200px;
+      height: 1px;
+      background: rgba(255, 255, 255, .08);
+      overflow: hidden;
+    }
+
+    .loader-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--violet), var(--pink));
+      width: 0%;
+      transition: width 0.2s ease-out;
+    }
+
+    @keyframes lUp {
+      from {
+        transform: translateY(110%);
+        opacity: 0
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1
+      }
+    }
+
+    @keyframes lFill {
+      from {
+        width: 0
+      }
+
+      to {
+        width: 100%
+      }
+    }
+
+    .loader-pct {
+      font-family: 'Fira Code', monospace;
+      font-size: .75rem;
+      color: var(--muted);
+      letter-spacing: .2em;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      padding: 22px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(7, 6, 10, .7);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--text), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color .2s;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* ── HERO ── */
+    .design-hero {
+      padding: 180px 80px 100px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05), transparent 70%);
+      position: relative;
+    }
+
+    .design-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(139, 92, 246, .03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 92, 246, .03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Fira Code', monospace;
+      font-size: .75rem;
+      color: var(--violet);
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 32px;
+      background: linear-gradient(135deg, var(--text) 30%, var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── DESIGN GRID ── */
+    .design-container {
+      padding: 60px 80px 120px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .design-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .design-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: transform .6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow .6s;
+    }
+
+    .design-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, .5), 0 0 0 1px var(--violet);
+    }
+
+    .design-card.featured {
+      grid-column: span 2;
+    }
+
+    .card-img-wrap {
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .design-card:hover .card-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7, 6, 10, 0.9) 0%, transparent 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all .5s ease;
+    }
+
+    .design-card:hover .card-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .card-tag {
+      font-family: 'Fira Code', monospace;
+      font-size: .65rem;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--violet);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: .9rem;
+      color: var(--muted);
+      max-width: 450px;
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all .8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 80px;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    footer a {
+      color: var(--violet);
+      text-decoration: none;
+    }
+
+    /* ── MOBILE ── */
+    @media(max-width: 900px) {
+      nav {
+        padding: 16px 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .design-hero {
+        padding: 120px 24px 60px;
+      }
+
+      .design-container {
+        padding: 24px;
+      }
+
+      .design-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .design-card.featured {
+        grid-column: span 1;
+      }
+
+      .card-overlay {
+        opacity: 1;
+        transform: none;
+        background: linear-gradient(to top, rgba(7, 6, 10, 0.8), transparent);
+        padding: 24px;
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-text">
+      <span>Design</span>
+    </div>
+    <div class="loader-line">
+      <div class="loader-fill"></div>
+    </div>
+    <div class="loader-pct" id="loaderPct">0%</div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">AR.</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#" style="color:var(--violet);">Design</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="design-hero">
+    <span class="hero-eyebrow reveal">Visual Storytelling</span>
+    <h1 class="hero-title reveal">Design <br>Portfolio.</h1>
+    <p class="hero-subtitle reveal">
+      Exploring the intersection of aesthetics and functionality. Each pixel is placed with purpose to create intuitive,
+      delightful user experiences.
+    </p>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="design-container">
+    <div class="design-grid">
+
+      <!-- Project 1 -->
+      <a href="https://www.figma.com/proto/WEOtzbvZi65pIdy0wobDTj/TicketNova?node-id=0-1&t=pH5l9JX6s6Ic97j2-1"
+        target="_blank" class="design-card featured reveal"
+        style="display: block; text-decoration: none; color: inherit;">
+        <div class="card-img-wrap">
+          <img src="C:\Users\USER\.gemini\antigravity\brain\f5c1b621-309f-4973-97c8-0c2dd753bd60\media__1777105022271.jpg"
+            alt="TicketNova App Design">
+          <div class="card-overlay">
+            <div class="card-tags">
+              <span class="card-tag">Mobile App</span>
+              <span class="card-tag">UI/UX</span>
+              <span class="card-tag">Figma</span>
+            </div>
+            <h2 class="card-title">TicketNova</h2>
+            <p class="card-desc">A modern movie ticket booking app designed with a clean and user-friendly interface for
+              easy browsing, seat selection, and seamless booking experience.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 2 (FOODIA) -->
+      <a href="https://www.figma.com/proto/kzxIAMR7elQNODnoZQP3bO/Website?node-id=0-1&t=d9L3xczL1RnMvb9W-1"
+        target="_blank" class="design-card featured reveal"
+        style="display: block; text-decoration: none; color: inherit;">
+        <div class="card-img-wrap">
+          <img
+            src="C:\Users\USER\.gemini\antigravity\brain\f5c1b621-309f-4973-97c8-0c2dd753bd60\media__1777102100697.jpg"
+            alt="FOODIA Vegetable Online shopping Web Design">
+          <div class="card-overlay">
+            <div class="card-tags">
+              <span class="card-tag">Web Design</span>
+              <span class="card-tag">E-commerce</span>
+              <span class="card-tag">UI/UX Design</span>
+              <span class="card-tag">Figma</span>
+            </div>
+            <h2 class="card-title">FOODIA</h2>
+            <p class="card-desc">FOODIA is a clean and user-friendly online vegetable delivery platform designed for
+              effortless grocery shopping and efficient order management.</p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <footer>
+    <span>©2026 Aakash R</span>
+    <a href="index.html">Back to Home →</a>
+  </footer>
+
+  <script>
+    // ── LOADER
+    let pct = 0;
+    const pctEl = document.getElementById('loaderPct');
+    const fillEl = document.querySelector('.loader-fill');
+    const loaderEl = document.getElementById('loader');
+    
+    // Show 0% for a moment
+    setTimeout(() => {
+      const loaderInterval = setInterval(() => {
+        pct = Math.min(pct + Math.random() * 15, 100);
+        pctEl.textContent = Math.floor(pct) + '%';
+        fillEl.style.width = pct + '%';
+        if (pct >= 100) {
+          clearInterval(loaderInterval);
+          setTimeout(() => loaderEl.classList.add('done'), 400);
+        }
+      }, 80);
+    }, 500);
+
+    // ── SCROLL REVEAL
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+
+</html>
