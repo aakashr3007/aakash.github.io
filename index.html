@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aakash R — Portfolio</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Cabinet+Grotesk:wght@300;400;500;700;800&family=Fira+Code:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #07060a;
+      --surface: #0f0d14;
+      --card: #14121c;
+      --indigo: #6366f1;
+      --violet: #8b5cf6;
+      --cyan: #06b6d4;
+      --pink: #ec4899;
+      --text: #f1f0f5;
+      --muted: #6b6880;
+      --border: rgba(99, 102, 241, 0.18);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Cabinet Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── LOADER ── */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      transition: opacity .8s ease;
+    }
+
+    #loader.done {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      overflow: hidden;
+    }
+
+    .loader-text span {
+      display: inline-block;
+      animation: lUp .6s cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    .loader-text span:nth-child(2) {
+      animation-delay: .08s;
+    }
+
+    .loader-text span:nth-child(3) {
+      animation-delay: .14s;
+    }
+
+    @keyframes lUp {
+      from {
+        transform: translateY(110%);
+        opacity: 0
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1
+      }
+    }
+
+    .loader-line {
+      width: 200px;
+      height: 1px;
+      background: rgba(255, 255, 255, .08);
+      overflow: hidden;
+    }
+
+    .loader-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--indigo), var(--cyan));
+      width: 0%;
+      transition: width 0.2s ease-out;
+    }
+
+    @keyframes lFill {
+      from {
+        width: 0
+      }
+
+      to {
+        width: 100%
+      }
+    }
+
+    .loader-pct {
+      font-family: 'Fira Code', monospace;
+      font-size: .75rem;
+      color: var(--muted);
+      letter-spacing: .2em;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      padding: 22px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(7, 6, 10, .7);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--text), var(--indigo));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color .2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--cyan);
+      transition: width .3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* LEFT */
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 140px 64px 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Animated grid lines bg */
+    .hero-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99, 102, 241, .04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, .04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      animation: gridShift 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gridShift {
+      to {
+        background-position: 48px 48px;
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 18px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-family: 'Fira Code', monospace;
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 36px;
+      width: fit-content;
+      opacity: 0;
+      animation: fadeUp .8s 2.3s ease forwards;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: blink 2s ease infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(1.6)
+      }
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-weight: 900;
+      line-height: .9;
+      letter-spacing: -0.04em;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp .8s 2.4s ease forwards;
+    }
+
+    .hero-name .line1 {
+      display: block;
+      color: var(--text);
+    }
+
+    .hero-name .line2 {
+      display: block;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-typed {
+      font-family: 'Fira Code', monospace;
+      font-size: 1rem;
+      color: var(--violet);
+      margin-bottom: 20px;
+      min-height: 28px;
+      opacity: 0;
+      animation: fadeUp .8s 2.5s ease forwards;
+    }
+
+    .hero-typed .cursor-blink {
+      border-right: 2px solid var(--violet);
+      animation: curBlink .7s step-end infinite;
+    }
+
+    @keyframes curBlink {
+      50% {
+        border-color: transparent
+      }
+    }
+
+    .hero-desc {
+      font-size: .95rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 420px;
+      font-weight: 300;
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: fadeUp .8s 2.6s ease forwards;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .8s 2.7s ease forwards;
+    }
+
+    .btn-glow {
+      padding: 14px 34px;
+      background: var(--indigo);
+      color: #fff;
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      transition: transform .2s, box-shadow .3s, background .3s;
+      box-shadow: 0 0 30px rgba(99, 102, 241, .4);
+    }
+
+    .btn-glow:hover {
+      background: var(--violet);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 40px rgba(139, 92, 246, .5);
+    }
+
+    .btn-border {
+      padding: 14px 34px;
+      border: 1.5px solid rgba(255, 255, 255, .15);
+      color: var(--text);
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+
+    .btn-border:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      transform: translateY(-3px);
+    }
+
+    /* RIGHT — photo */
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    /* Animated gradient bg for photo side */
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(99, 102, 241, .2), transparent 70%),
+        radial-gradient(ellipse at 30% 80%, rgba(6, 182, 212, .15), transparent 60%);
+      animation: orbShift 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes orbShift {
+      to {
+        background-position: 40px -30px;
+      }
+    }
+
+    .photo-frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72%;
+      aspect-ratio: .78;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, .6), 0 0 0 1px rgba(99, 102, 241, .2);
+      opacity: 0;
+      animation: fadeIn 1s 2.8s ease forwards;
+      z-index: 1;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: filter .4s;
+    }
+
+    .photo-frame:hover img {
+      filter: grayscale(0);
+    }
+
+    .photo-placeholder-box {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #1a1828, #0f0d18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .photo-placeholder-box .avatar-ring {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: rotateRing 4s linear infinite;
+      padding: 3px;
+    }
+
+    @keyframes rotateRing {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .photo-placeholder-box .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-placeholder-box .avatar-inner i {
+      font-size: 3.5rem;
+      color: var(--muted);
+    }
+
+    .photo-placeholder-box p {
+      font-family: 'Fira Code', monospace;
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: .6;
+    }
+
+    /* Photo number tag */
+    .photo-tag {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      z-index: 2;
+      font-family: 'Fira Code', monospace;
+      font-size: .65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(241, 240, 245, .4);
+      border: 1px solid rgba(255, 255, 255, .08);
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: rgba(0, 0, 0, .3);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Floating stats on hero */
+    .hero-stat-card {
+      position: absolute;
+      z-index: 2;
+      padding: 14px 20px;
+      background: rgba(15, 13, 20, .8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(99, 102, 241, .2);
+      border-radius: 12px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .hero-stat-card.top-right {
+      top: 80px;
+      right: 32px;
+      animation-delay: 3s;
+    }
+
+    .hero-stat-card.middle-right {
+      top: 240px;
+      right: 16px;
+      animation-delay: 3.1s;
+    }
+
+    .hero-stat-card.bottom-right {
+      bottom: 80px;
+      right: 32px;
+      animation-delay: 3.2s;
+    }
+
+    .hero-stat-card.top-left {
+      top: 140px;
+      left: 24px;
+      animation-delay: 3.3s;
+    }
+
+    .hero-stat-card.bottom-left {
+      bottom: 120px;
+      left: 16px;
+      animation-delay: 3.4s;
+    }
+
+    .hero-stat-card .stat-n {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(to right, var(--indigo), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-stat-card .stat-l {
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      min-height: 80vh;
+      position: relative;
+      z-index: 2;
+    }
+
+    .about-photo-col {
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-img-frame {
+      width: 75%;
+      aspect-ratio: .75;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 20px 20px 0 var(--indigo);
+      transition: box-shadow .4s;
+    }
+
+    .about-img-frame:hover {
+      box-shadow: 28px 28px 0 var(--cyan);
+    }
+
+    .about-img-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(150deg, #1c1a2a, #141220);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .about-img-placeholder i {
+      font-size: 4rem;
+      color: var(--muted);
+      opacity: .3;
+    }
+
+    .about-img-placeholder span {
+      font-family: 'Fira Code', monospace;
+      font-size: .65rem;
+      letter-spacing: .2em;
+      color: var(--muted);
+      opacity: .4;
+      text-transform: uppercase;
+    }
+
+    /* Number label */
+    .about-num {
+      position: absolute;
+      top: 24px;
+      left: -20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      font-weight: 900;
+      color: rgba(99, 102, 241, .08);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .about-content-col {
+      padding: 100px 72px 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .section-eyebrow {
+      font-family: 'Fira Code', monospace;
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .section-eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--cyan);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 32px;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--indigo);
+    }
+
+    .about-text {
+      font-size: .95rem;
+      color: var(--muted);
+      line-height: 1.85;
+      font-weight: 300;
+      margin-bottom: 28px;
+    }
+
+    .about-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+
+    .about-tag {
+      padding: 7px 16px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: .72rem;
+      letter-spacing: .08em;
+      color: var(--text);
+      background: rgba(99, 102, 241, .06);
+      transition: all .2s;
+    }
+
+    .about-tag:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: rgba(6, 182, 212, .06);
+      transform: translateY(-2px);
+    }
+
+    /* ── EDUCATION ── */
+    #education {
+      padding: 100px 80px;
+      position: relative;
+      z-index: 2;
+      background: var(--bg);
+    }
+
+    .edu-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .edu-card {
+      padding: 36px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+    }
+
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--indigo), var(--cyan));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s ease;
+    }
+
+    .edu-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .edu-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+      border-color: rgba(99, 102, 241, .3);
+    }
+
+    .edu-icon {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .edu-school {
+      font-size: .82rem;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: .04em;
+    }
+
+    .edu-date {
+      font-family: 'Fira Code', monospace;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      color: var(--muted);
+      padding: 4px 12px;
+      background: rgba(255, 255, 255, .04);
+      border-radius: 100px;
+      width: fit-content;
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      padding: 100px 80px;
+      background: var(--surface);
+    }
+
+    .skills-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .skill-cat {
+      padding: 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: transform .3s, border-color .3s;
+    }
+
+    .skill-cat:hover {
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, .4);
+    }
+
+    .skill-cat-title {
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-cat-title i {
+      color: var(--cyan);
+    }
+
+    .skill-item-row {
+      margin-bottom: 16px;
+    }
+
+    .skill-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .skill-name {
+      font-size: .8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .skill-level-label {
+      font-family: 'Fira Code', monospace;
+      font-size: .65rem;
+      color: var(--muted);
+    }
+
+    .skill-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .sdot {
+      width: 24px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, .08);
+      transition: background .3s;
+    }
+
+    .sdot.on {
+      background: linear-gradient(to right, var(--indigo), var(--cyan));
+    }
+
+    /* ── PROJECTS ── */
+    #projects {
+      padding: 100px 80px;
+      background: var(--bg);
+    }
+
+    .projects-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .proj-card.wide {
+      grid-column: span 2;
+    }
+
+    /* Zig-Zag for Wide Projects */
+    @media(min-width: 901px) {
+      .proj-card.wide {
+        flex-direction: row;
+        align-items: stretch;
+      }
+
+      .proj-card.wide .proj-header {
+        width: 320px;
+        padding: 48px;
+        border-right: 1px solid var(--border);
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .proj-card.wide .proj-body {
+        padding: 48px;
+      }
+
+      .proj-card.wide.rev {
+        flex-direction: row-reverse;
+      }
+
+      .proj-card.wide.rev .proj-header {
+        border-right: none;
+        border-left: 1px solid var(--border);
+      }
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 56px;
+    }
+
+    .proj-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proj-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+      border-color: rgba(99, 102, 241, .4);
+    }
+
+    .proj-header {
+      padding: 28px 32px 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .proj-icon-wrap {
+      width: 56px;
+      height: 56px;
+      background: rgba(99, 102, 241, .1);
+      border: 1px solid rgba(99, 102, 241, .2);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--indigo);
+    }
+
+    .proj-num {
+      font-family: 'Fira Code', monospace;
+      font-size: .65rem;
+      color: var(--muted);
+      letter-spacing: .15em;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .proj-body {
+      padding: 20px 32px 32px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proj-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .proj-date {
+      font-family: 'Fira Code', monospace;
+      font-size: .68rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .proj-desc {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .proj-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .stack-tag {
+      padding: 5px 12px;
+      background: rgba(99, 102, 241, .08);
+      border: 1px solid rgba(99, 102, 241, .15);
+      border-radius: 100px;
+      font-size: .68rem;
+      letter-spacing: .06em;
+      color: var(--indigo);
+      font-weight: 600;
+    }
+
+    .stack-tag.c {
+      background: rgba(6, 182, 212, .08);
+      border-color: rgba(6, 182, 212, .15);
+      color: var(--cyan);
+    }
+
+    .stack-tag.p {
+      background: rgba(236, 72, 153, .08);
+      border-color: rgba(236, 72, 153, .15);
+      color: var(--pink);
+    }
+
+    .proj-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      transition: gap .2s, color .2s;
+      margin-top: auto;
+    }
+
+    .proj-link:hover {
+      gap: 14px;
+      color: var(--cyan);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 100px 80px;
+      background: var(--surface);
+    }
+
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 56px;
+      align-items: start;
+    }
+
+    .contact-info-col {}
+
+    .contact-big-email {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--text), var(--indigo));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 36px;
+      line-height: 1.2;
+      word-break: break-all;
+      transition: opacity .2s;
+    }
+
+    .contact-big-email:hover {
+      opacity: .8;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .contact-card:hover {
+      border-color: rgba(99, 102, 241, .4);
+      transform: translateX(4px);
+    }
+
+    .contact-card-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(99, 102, 241, .1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--indigo);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-card-label {
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .contact-card-val {
+      font-size: .9rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .soc-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all .2s;
+    }
+
+    .soc-btn:hover {
+      border-color: var(--indigo);
+      color: var(--indigo);
+      background: rgba(99, 102, 241, .08);
+      transform: translateY(-3px);
+    }
+
+    /* Form */
+    .contact-form-col {}
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-size: .9rem;
+      transition: border-color .2s, background .2s;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--muted);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--indigo);
+      background: rgba(99, 102, 241, .04);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--indigo), var(--violet));
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .3s, opacity .2s;
+      box-shadow: 0 8px 30px rgba(99, 102, 241, .3);
+    }
+
+    .form-submit:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(99, 102, 241, .5);
+    }
+
+    .form-submit:disabled {
+      opacity: .6;
+    }
+
+    .form-msg {
+      padding: 12px 18px;
+      border-radius: 10px;
+      margin: 12px 0;
+      font-size: .85rem;
+      text-align: center;
+      display: none;
+      font-weight: 600;
+    }
+
+    .form-msg.success {
+      background: rgba(34, 197, 94, .12);
+      border: 1px solid rgba(34, 197, 94, .3);
+      display: block;
+    }
+
+    .form-msg.error {
+      background: rgba(239, 68, 68, .12);
+      border: 1px solid rgba(239, 68, 68, .3);
+      display: block;
+    }
+
+    .form-msg.sending {
+      background: rgba(99, 102, 241, .12);
+      border: 1px solid rgba(99, 102, 241, .3);
+      display: block;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 80px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .72rem;
+      letter-spacing: .08em;
+      color: var(--muted);
+      background: var(--bg);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-d1 {
+      transition-delay: .1s;
+    }
+
+    .reveal-d2 {
+      transition-delay: .2s;
+    }
+
+    .reveal-d3 {
+      transition-delay: .3s;
+    }
+
+    .reveal-d4 {
+      transition-delay: .4s;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      background: var(--surface);
+      position: relative;
+      z-index: 2;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 22s linear infinite;
+      gap: 56px;
+    }
+
+    .marquee-item {
+      font-family: 'Fira Code', monospace;
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 56px;
+    }
+
+    .marquee-item span {
+      color: var(--indigo);
+    }
+
+    @keyframes marquee {
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    /* ── MOBILE ── */
+    @media(max-width:900px) {
+      nav {
+        padding: 16px 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      #hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-right {
+        height: 60vw;
+        min-height: 300px;
+      }
+
+      .hero-left {
+        padding: 100px 28px 48px;
+      }
+
+      #about {
+        grid-template-columns: 1fr;
+      }
+
+      .about-photo-col {
+        height: 60vw;
+      }
+
+      .about-sticky {
+        position: static;
+        height: auto;
+        padding: 40px 28px;
+      }
+
+      .about-content-col {
+        padding: 40px 28px;
+      }
+
+      #education,
+      #skills,
+      #projects,
+      #contact {
+        padding: 60px 24px;
+      }
+
+      .edu-grid,
+      .projects-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stat-card {
+        padding: 8px 14px;
+        transform: scale(0.85);
+      }
+
+      .hero-stat-card.top-right {
+        top: 40px;
+        right: 12px;
+      }
+
+      .hero-stat-card.middle-right {
+        top: 140px;
+        right: 8px;
+      }
+
+      .hero-stat-card.bottom-right {
+        bottom: 40px;
+        right: 12px;
+      }
+
+      .hero-stat-card.top-left {
+        top: 60px;
+        left: 8px;
+      }
+
+      .hero-stat-card.bottom-left {
+        bottom: 60px;
+        left: 8px;
+      }
+
+      .proj-title {
+        font-size: 1.25rem;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-text">
+      <span>Aakash R</span>
+    </div>
+    <div class="loader-line">
+      <div class="loader-fill"></div>
+    </div>
+    <div class="loader-pct" id="loaderPct">0%</div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">AR.</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="behance.html" style="color:var(--violet);">Design</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <div class="badge-dot"></div> MCA Student · Palayamkottai, TN
+      </div>
+      <h1 class="hero-name">
+        <span class="line1">Aakash R</span>
+        <span class="line2"></span>
+      </h1>
+      <div class="hero-typed"><span id="typedText"></span><span class="cursor-blink"> </span></div>
+      <p class="about-text reveal">
+        Passionate about <strong>Flutter Development</strong>, and <strong>UI/UX
+          design</strong>, dedicated to building practical applications that solve real-world problems. Currently
+        pursuing my <strong>MCA</strong> while continuously enhancing my skills and knowledge every day.
+      </p>
+      <div class="hero-btns">
+        <a href="Aakashresume.pdf" download class="btn-glow"><i class="far fa-file-alt"></i> &nbsp;Download CV</a>
+        <a href="#projects" class="btn-border">View Projects</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="photo-frame">
+        <img src="aakash.jpg" alt="Aakash R"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder-box" style="display:none;">
+          <div class="avatar-ring">
+            <div class="avatar-inner"><i class="fas fa-user"></i></div>
+          </div>
+          <p>Your Photo Here</p>
+        </div>
+      </div>
+
+      <!-- Floating stat cards -->
+      <div class="hero-stat-card top-right">
+        <div class="stat-n">5</div>
+        <div class="stat-l">Projects Built</div>
+      </div>
+      <div class="hero-stat-card middle-right">
+        <div class="stat-n"> 2 </div>
+        <div class="stat-l"> Ui/Ux Design </div>
+      </div>
+      <div class="hero-stat-card top-left">
+        <div class="stat-n"> 2 </div>
+        <div class="stat-l"> Flutter Project </div>
+      </div>
+      <div class="hero-stat-card bottom-right">
+        <div class="stat-n"> 1 </div>
+        <div class="stat-l"> Web Project </div>
+      </div>
+      <div class="hero-stat-card bottom-left">
+        <div class="stat-n">Flutter</div>
+        <div class="stat-l">+ Firebase</div>
+      </div>
+
+      <div class="photo-tag">Aakash R · MCA 2024–Present</div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">Java <span>✦</span> Flutter <span>✦</span> Firebase <span>✦</span> Android
+        <span>✦</span> Python <span>✦</span> SQL <span>✦</span> Dart <span>✦</span> C++ <span>✦</span>
+      </div>
+      <div class="marquee-item">Java <span>✦</span> Flutter <span>✦</span> Firebase <span>✦</span> Android
+        <span>✦</span> Python <span>✦</span> SQL <span>✦</span> Dart <span>✦</span> C++ <span>✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ABOUT ══ -->
+  <section id="about" style="display:block; padding:100px 80px; background:var(--bg);">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div class="section-eyebrow reveal">01 — About Me</div>
+      <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:72px; align-items:start; margin-top:16px;">
+
+        <div>
+          <h2 class="section-title reveal">Building things<br><em>that matter.</em></h2>
+          <p class="about-text reveal">
+            I'm <strong>Aakash R</strong>, an MCA
+            with a strong passion for <strong>Android development</strong> and <strong>UI/UX design</strong>.
+            I enjoy exploring new technologies and creating practical mobile and web applications that solve real-world
+            problems.
+          </p>
+
+          <p class="about-text reveal">
+            Currently, I am focusing on <strong>Figma design</strong>, <strong>Flutter</strong>,
+            <strong>Firebase</strong>, and cloud technologies.
+            I enjoy designing intuitive and visually appealing user interfaces while also developing functional
+            applications.
+            As a quick learner, I am highly motivated to grow as a <strong>Flutter Developer & UI/UX Designer</strong>
+            and contribute to impactful projects.
+          </p>
+          <div class="about-tags reveal">
+            <span class="about-tag">Quick Learner</span>
+            <span class="about-tag">Mobile Dev</span>
+            <span class="about-tag">Figma design</span>
+            <span class="about-tag">Time Management</span>
+            <span class="about-tag">Problem Solver</span>
+          </div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;" class="reveal">
+            <a href="Aakashresume.pdf" download class="btn-glow" style="font-size:.75rem;padding:12px 28px;"><i
+                class="far fa-file-alt"></i>&nbsp;Resume</a>
+            <a href="#contact" class="btn-border" style="font-size:.75rem;padding:12px 28px;">Say Hello</a>
+          </div>
+        </div>
+
+        <div class="reveal reveal-d2" style="display:flex;flex-direction:column;gap:16px;">
+          <div
+            style="padding:32px;background:var(--surface);border:1px solid var(--border);border-radius:16px;position:relative;overflow:hidden;">
+            <div
+              style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.25),transparent 70%);pointer-events:none;">
+            </div>
+            <div
+              style="font-family:'Fira Code',monospace;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">
+              Currently</div>
+            <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:6px;">MCA
+              Student</div>
+            <div style="font-size:.82rem;color:var(--muted);">Manonmaniam Sundaranar University</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div
+              style="padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:16px;text-align:center;">
+              <div
+                style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,var(--indigo),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+                5</div>
+              <div
+                style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;">
+                Projects</div>
+            </div>
+            <div
+              style="padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:16px;text-align:center;">
+              <div
+                style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,var(--violet),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+                5</div>
+              <div
+                style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;">
+                Languages</div>
+            </div>
+          </div>
+          <div
+            style="padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px;display:flex;align-items:center;gap:16px;">
+            <div
+              style="width:44px;height:44px;border-radius:12px;background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.2);display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:1.1rem;flex-shrink:0;">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <div
+                style="font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">
+                Location</div>
+              <div style="font-size:.9rem;font-weight:600;">Palayamkottai, Tamil Nadu</div>
+            </div>
+          </div>
+          <div
+            style="padding:16px 24px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:16px;display:flex;align-items:center;gap:12px;">
+            <span
+              style="width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e;flex-shrink:0;animation:blink 2s ease infinite;"></span>
+            <span style="font-size:.82rem;color:#86efac;font-weight:600;">Available for Jobs</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ EDUCATION ══ -->
+  <section id="education">
+    <div class="edu-inner">
+      <div class="section-eyebrow reveal">02 — Education</div>
+      <h2 class="section-title reveal">Academic<br><em>Journey.</em></h2>
+      <div class="edu-grid">
+        <div class="edu-card reveal reveal-d1">
+          <div class="edu-icon">📘</div>
+          <div class="edu-degree">Master of Computer Applications (MCA)</div>
+          <div class="edu-school">Manonmaniam Sundaranar University, Tirunelveli</div>
+          <div class="edu-date">2024 – Present</div>
+        </div>
+        <div class="edu-card reveal reveal-d2">
+          <div class="edu-icon">🎓</div>
+          <div class="edu-degree">Bachelor of Computer Application (BCA)</div>
+          <div class="edu-school">St John's College, Palayamkottai</div>
+          <div class="edu-date">2021 – 2024</div>
+        </div>
+        <div class="edu-card reveal reveal-d3">
+          <div class="edu-icon">🏫</div>
+          <div class="edu-degree">HSC — Computer Science</div>
+          <div class="edu-school">St John's Hr. Sec. School, Palayamkottai</div>
+          <div class="edu-date">2020 – 2021</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SKILLS ══ -->
+  <section id="skills">
+    <div class="skills-inner">
+      <div class="section-eyebrow reveal">03 — Skills</div>
+      <h2 class="section-title reveal">Technical<br><em>Proficiency.</em></h2>
+      <div class="skills-grid">
+
+        <!-- Programming Languages -->
+        <div class="skill-cat reveal reveal-d1">
+          <div class="skill-cat-title"><i class="fas fa-code"></i> Programming Languages</div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">Java (Core)</span><span
+                class="skill-level-label">Advanced</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">C</span><span
+                class="skill-level-label">Intermediate</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">C++</span><span
+                class="skill-level-label">Intermediate</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">Python</span><span
+                class="skill-level-label">Intermediate</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">Dart</span><span
+                class="skill-level-label">Intermediate</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Dev -->
+        <div class="skill-cat reveal reveal-d2">
+          <div class="skill-cat-title"><i class="fas fa-mobile-alt"></i> Mobile Development</div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">Flutter</span><span
+                class="skill-level-label">Advanced</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">Firebase Auth</span><span
+                class="skill-level-label">Intermediate</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">Firestore</span><span
+                class="skill-level-label">Intermediate</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">Firebase Storage</span><span
+                class="skill-level-label">Intermediate</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Database & Tools -->
+        <div class="skill-cat reveal reveal-d3">
+          <div class="skill-cat-title"><i class="fas fa-database"></i> Database & Tools</div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">SQLite</span><span
+                class="skill-level-label">Intermediate</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">SQL</span><span
+                class="skill-level-label">Intermediate</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">Android Studio</span><span
+                class="skill-level-label">Advanced</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">VS Code</span><span
+                class="skill-level-label">Advanced</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot"></div>
+            </div>
+          </div>
+          <div class="skill-item-row">
+            <div class="skill-item-header"><span class="skill-name">English Typewriting (Higher)</span><span
+                class="skill-level-label">Expert</span></div>
+            <div class="skill-dots">
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+              <div class="sdot on"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PROJECTS ══ -->
+  <section id="projects">
+    <div class="projects-inner">
+      <div class="section-eyebrow reveal">04 — Projects</div>
+      <h2 class="section-title reveal">Selected<br><em>Work.</em></h2>
+      <div class="projects-grid">
+
+        <div class="proj-card reveal reveal-d1">
+          <div class="proj-header">
+            <div class="proj-icon-wrap"><i class="fas fa-globe"></i></div>
+            <span class="proj-num">Project 01</span>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Wanderlust Organizer</div>
+            <div class="proj-date"><i class="far fa-calendar-alt"></i> Dec 2023 – Apr 2024</div>
+            <p class="proj-desc">A premium tourism package management system for creating and customizing dream tour
+              packages with ease. Handles full CRUD operations, package filtering, and user bookings.</p>
+            <div class="proj-stack">
+              <span class="stack-tag">HTML5</span>
+              <span class="stack-tag">CSS3</span>
+              <span class="stack-tag">JavaScript</span>
+              <span class="stack-tag c">PHP</span>
+              <span class="stack-tag c">MySQL</span>
+            </div>
+            <a href="Ug abstract.pdf" target="_blank" class="proj-link">View Abstract <i
+                class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="proj-card reveal reveal-d2">
+          <div class="proj-header">
+            <div class="proj-icon-wrap"
+              style="background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.2);color:var(--cyan);"><i
+                class="fas fa-layer-group"></i></div>
+            <span class="proj-num">Project 02</span>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Departmental Management</div>
+            <div class="proj-date"><i class="far fa-calendar-alt"></i> Jul 2025 – Oct 2025</div>
+            <p class="proj-desc">A Flutter-based mobile application designed for efficient departmental tracking with
+              integrated location services, real-time cloud sync via Firebase, and role-based access control.</p>
+            <div class="proj-stack">
+              <span class="stack-tag p">Flutter</span>
+              <span class="stack-tag p">Dart</span>
+              <span class="stack-tag c">Firebase</span>
+              <span class="stack-tag c">cloudinary</span>
+            </div>
+            <a href="Abstract.pdf" target="_blank" class="proj-link">View Abstract <i
+                class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="proj-card wide reveal reveal-d2">
+          <div class="proj-header">
+            <div class="proj-icon-wrap"
+              style="background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.2);color:var(--cyan);"><i
+                class="fas fa-handshake"></i></div>
+            <span class="proj-num">Project 03</span>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Price Negotiation System For Secondhand Products</div>
+            <div class="proj-date"><i class="far fa-calendar-alt"></i> Jul 2025 – Oct 2025</div>
+            <p class="proj-desc">The Price Negotiation System for Secondhand Products is a simple and easy-to-use
+              marketplace app where buyers and sellers can chat and negotiate prices in real time.
+              It makes the buying and selling process more flexible, transparent, and comfortable for users.</p>
+            <div class="proj-stack">
+              <span class="stack-tag p">Flutter</span>
+              <span class="stack-tag p">Dart</span>
+              <span class="stack-tag c">Firebase</span>
+              <span class="stack-tag c">cloudinary</span>
+            </div>
+            <a href="AbstractP.pdf" target="_blank" class="proj-link">View Abstract <i
+                class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="proj-card wide rev reveal reveal-d2">
+          <div class="proj-header">
+            <div class="proj-icon-wrap"
+              style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.2);color:var(--red);">
+              <i class="fas fa-ticket-alt"></i>
+            </div>
+            <span class="proj-num">Project 04</span>
+          </div>
+
+          <div class="proj-body">
+            <div class="proj-title">TicketNova – Movie Ticket Booking UI/UX Design</div>
+
+            <div class="proj-date">
+              <i class="far fa-calendar-alt"></i> Feb 2026 – Feb 2026
+            </div>
+
+            <p class="proj-desc">
+              TicketNova is a modern movie ticket booking UI/UX design created in Figma, focused on making the ticket
+              booking experience fast, simple, and enjoyable.
+              The design allows users to easily explore movies, view show timings, select seats, and complete bookings
+              with a smooth and intuitive flow.
+              Special attention was given to clean layouts, visual hierarchy, and creating an engaging cinema booking
+              experience.
+            </p>
+
+            <div class="proj-stack">
+              <span class="stack-tag p">Figma</span>
+              <span class="stack-tag p">App Design</span>
+              <span class="stack-tag c">UI Design</span>
+              <span class="stack-tag c">Prototyping</span>
+            </div>
+
+            <a href="https://www.behance.net/gallery/248337341/TICKETNOVA-" target="_blank" class="proj-link">
+              Case Study <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="proj-card wide reveal reveal-d2">
+          <div class="proj-header">
+            <div class="proj-icon-wrap"
+              style="background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.2);color:#22c55e;">
+              <i class="fas fa-shopping-basket"></i>
+            </div>
+            <span class="proj-num">Project 05 — UI/UX Design</span>
+          </div>
+
+          <div class="proj-body">
+            <div class="proj-title">FOODIA - Online Vegetable Delivery Platform Web Design</div>
+
+            <div class="proj-date">
+              <i class="far fa-calendar-alt"></i> April 2026 – April 2026
+            </div>
+
+            <p class="proj-desc">
+              FOODIA is a clean and user-friendly online vegetable delivery platform focused on simplicity and smooth
+              user experience. The design aims to make grocery shopping effortless while also providing an efficient
+              admin system for managing orders and customers.
+            </p>
+
+            <div class="proj-stack">
+              <span class="stack-tag p">Figma</span>
+              <span class="stack-tag p">UI/UX</span>
+              <span class="stack-tag c">E-commerce</span>
+              <span class="stack-tag c">Web Design</span>
+            </div>
+
+            <a href="https://www.behance.net/gallery/247826679/Online-Vegetable-Delivery-Platform-UiUx-Design"
+              target="_blank" class="proj-link">
+              Case Study <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 64px; text-align: center;" class="reveal">
+        <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 24px;">Looking for my UI/UX Design work?</p>
+        <a href="behance.html" class="btn-border" style="border-color: var(--violet); color: var(--violet);">
+          Explore Design Portfolio <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACT ══ -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="section-eyebrow reveal">05 — Contact</div>
+      <h2 class="section-title reveal">Let's work<br><em>together.</em></h2>
+
+      <div class="contact-grid">
+        <div class="contact-info-col reveal">
+          <a href="mailto:aakashr3002@gmail.com" class="contact-big-email">aakashr3002@gmail.com</a>
+
+          <div class="contact-card">
+            <div class="contact-card-icon"><i class="fas fa-user"></i></div>
+            <div>
+              <div class="contact-card-label">Name</div>
+              <div class="contact-card-val">Aakash R</div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <div class="contact-card-label">Location</div>
+              <div class="contact-card-val">Palayamkottai, Tamil Nadu</div>
+            </div>
+          </div>
+
+          <div class="social-row">
+            <a href="https://github.com/aakashr3007" target="_blank" class="soc-btn" title="GitHub"><i
+                class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/aakashr076/" target="_blank" class="soc-btn" title="LinkedIn"><i
+                class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/mr_aakash_076" target="_blank" class="soc-btn" title="Instagram"><i
+                class="fab fa-instagram"></i></a>
+            <a href="https://www.behance.net/aakashr17" target="_blank" class="soc-btn" title="Behance"><i
+                class="fab fa-behance"></i></a>
+          </div>
+        </div>
+
+        <div class="contact-form-col reveal reveal-d2">
+          <div id="formMsg" class="form-msg"></div>
+          <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="6bc85243-a92b-4d12-8a64-eac4d2fd866b">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" name="name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" name="email" placeholder="john@email.com" required>
+            </div>
+            <div class="form-group">
+              <label>Subject</label>
+              <input type="text" name="subject" placeholder="Job Opportunity / Collaboration" required>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea name="message" placeholder="Hi Aakash, I'd like to talk about..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit" id="submitBtn">
+              <span id="btnText"><i class="fas fa-paper-plane"></i> &nbsp;Send Message</span>
+              <span id="btnLoader" style="display:none;"><i class="fas fa-spinner fa-spin"></i> &nbsp;Sending...</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>©2026 Aakash R</span>
+    <span> Palayamkottai, Tamil Nadu</span>
+  </footer>
+
+  <script>
+    // ── LOADER
+    let pct = 0;
+    const pctEl = document.getElementById('loaderPct');
+    const fillEl = document.querySelector('.loader-fill');
+    const loaderEl = document.getElementById('loader');
+
+    // Show 0% for a moment before starting
+    setTimeout(() => {
+      const loaderInterval = setInterval(() => {
+        pct = Math.min(pct + Math.random() * 15, 100);
+        pctEl.textContent = Math.floor(pct) + '%';
+        fillEl.style.width = pct + '%';
+        if (pct >= 100) {
+          clearInterval(loaderInterval);
+          setTimeout(() => loaderEl.classList.add('done'), 400);
+        }
+      }, 80);
+    }, 500);
+
+
+
+    // ── TYPING EFFECT
+    const phrases = ['Android App Developer', 'Flutter Developer', 'Ui/Ux Designer'];
+    let pi = 0, ci = 0, del = false;
+    const typed = document.getElementById('typedText');
+    function type() {
+      const w = phrases[pi];
+      typed.textContent = del ? w.substring(0, ci--) : w.substring(0, ci++);
+      if (!del && ci > w.length) { del = true; setTimeout(type, 1200); return; }
+      if (del && ci < 0) { del = false; pi = (pi + 1) % phrases.length; }
+      setTimeout(type, del ? 55 : 95);
+    }
+    type();
+
+    // ── SCROLL REVEAL
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // ── CONTACT FORM
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('formMsg');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnLoader = document.getElementById('btnLoader');
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      submitBtn.disabled = true; btnText.style.display = 'none'; btnLoader.style.display = 'inline';
+      msg.className = 'form-msg sending'; msg.textContent = 'Sending your message…';
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        });
+        if ((await res.json()).success) {
+          msg.className = 'form-msg success'; msg.textContent = '✓ Message sent! Aakash will get back to you soon.';
+          form.reset();
+        } else throw new Error();
+      } catch { msg.className = 'form-msg error'; msg.textContent = '✗ Something went wrong. Please try again.'; }
+      finally {
+        submitBtn.disabled = false; btnText.style.display = 'inline'; btnLoader.style.display = 'none';
+        setTimeout(() => { msg.className = 'form-msg'; }, 5000);
+      }
+    });
+  </script>
+</body>
+
+</html>
